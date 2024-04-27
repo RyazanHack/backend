@@ -21,8 +21,9 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 # import all models
 from users import models  # noqa
-from vote import models # noqa
-from payment import models # noqa
+from vote import models  # noqa
+from payment import models  # noqa
+from stages import models  # noqa
 
 target_metadata = metadata
 config.set_main_option("sqlalchemy.url", DATABASE_URL)

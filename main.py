@@ -9,6 +9,7 @@ from starlette.responses import JSONResponse
 
 from users.routers import user_router
 from vote.routers import vote_router
+from stages.routers import stage_router
 from payment.routers import payment_router
 from config import LOGGING_CONFIG, METRICS, PRODUCTION
 from database import database
@@ -75,6 +76,7 @@ async def ping_pong():
 app.include_router(user_router)
 app.include_router(vote_router)
 app.include_router(payment_router)
+app.include_router(stage_router)
 
 if __name__ == "__main__":
     uvicorn.run(
