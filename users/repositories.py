@@ -15,8 +15,9 @@ class UserRepository:
 
     async def create(self, user_create: UserCreate) -> User:
         if await User.objects.get_or_none(phone=user_create.phone):
-            raise HTTPException(status_code=400,
-                                detail="User with this phone already exists")
+            raise HTTPException(
+                status_code=400, detail="User with this phone already exists"
+            )
         password = user_create.password
 
         dc = user_create.dict(exclude={"password"})
@@ -46,5 +47,5 @@ class UserRepository:
         await user.update()
         return user
 
-    async def subtract_user_voice(self, user: User) -> None:
-        await user.update(unused_votes=user.unused_votes - 1)
+    async def subtract_user_voice(self, user: User, amount) -> None:
+        await user.update(unused_votes=user.unused_votes - amount)
