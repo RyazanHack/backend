@@ -37,3 +37,6 @@ class UserRepository:
 
     async def get_by_id(self, user_id: int) -> Optional[User]:
         return await User.objects.get_or_none(id=user_id)
+
+    async def subtract_user_voice(self, user: User) -> None:
+        await user.update(unused_votes=user.unused_votes - 1)

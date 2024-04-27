@@ -4,17 +4,27 @@ from fastapi import APIRouter, Header, Depends
 
 from random import randint
 
+
+from .services import VoteService
+from .schemas import VoteCreate, RegionGet, RegionResponse
+
 from users.models import User
 from users.services import UserService
 
 vote_router = APIRouter(tags=["votes"], prefix="/votes")
 
 
-@vote_router.post('/upvote/{count_vote}')
-def upvote(current_user: Annotated[User, Depends(UserService().get_current_user)], count_vote: int):
-    return {'success': 'ok'}
+@vote_router.post("/upvote")
+async def upvote(
+    current_user: Annotated[User, Depends(UserService().get_current_user)],
+    vote: VoteCreate,
+) -> dict:
+    await VoteService().add_vote(current_user, vote)
+    return {"success": "ok"}
 
 
-@vote_router.get('/{region_name}')
-def get_all_votes(current_user: Annotated[User, Depends(UserService().get_current_user)], region_name: str):
-    return {'region_name': region_name, 'amount': randint(1, 4445444)}
+@vote_router.post("")
+async def get_region_votes(
+    searched_region: RegionGet,
+) -> RegionResponse:
+    return await VoteService().get_region_votes(searched_region)
