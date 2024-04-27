@@ -27,3 +27,13 @@ async def get_region_votes(
     searched_region: RegionGet,
 ) -> RegionResponse:
     return await VoteService().get_region_votes(searched_region)
+
+
+@vote_router.get("/stage_one")
+async def get_region_in_one_stage():
+    return await VoteService().get_winner_stage_one()
+
+
+@vote_router.get("/stage_two")
+async def get_region_in_two_stage():
+    return await VoteService().get_winner_stage_two()

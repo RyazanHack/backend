@@ -1,3 +1,5 @@
+from typing import List
+
 from users.services import UserService
 from users.models import User
 from .models import Vote
@@ -19,3 +21,9 @@ class VoteService:
 
     async def get_region_votes(self, searched_region: RegionGet) -> RegionResponse:
         return await self.repository.get_region_votes(searched_region)
+
+    async def get_winner_stage_one(self):
+        return await self.repository.stage_one()
+
+    async def get_winner_stage_two(self):
+        return await self.repository.stage_two()

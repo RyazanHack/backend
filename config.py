@@ -1,8 +1,10 @@
 import os
 from typing import Any, Dict
 
+import json
 from dotenv import load_dotenv
 from passlib.context import CryptContext
+
 from yookassa import Configuration
 
 load_dotenv()
@@ -33,6 +35,19 @@ YOOKASSA_ACCOUNT_ID = os.environ.get("YOOKASSA_ACCOUNT_ID", None)
 YOOKASSA_SECRET_KEY = os.environ.get("YOOKASSA_SECRET_KEY", None)
 Configuration.account_id = YOOKASSA_ACCOUNT_ID
 Configuration.secret_key = YOOKASSA_SECRET_KEY
+
+# REGIONS
+with open("russia.json", mode="r", encoding="UTF-8") as file:
+    ALL_DATA = json.load(file)["data"]
+ALL_REGIONS = {}
+DISTRICTS_WITH_AREA = {}
+for district in ALL_DATA:
+    for area in district["areas"]:
+        ALL_REGIONS[area["name"]] = 0
+        if not DISTRICTS_WITH_AREA.get(district["name"]):
+            DISTRICTS_WITH_AREA[district["name"]] = []
+        DISTRICTS_WITH_AREA[district["name"]].append(area["name"])
+REGIONS_IN_ONE_STAGE_WINNERS = []
 
 # LOGGING
 LOGGING_CONFIG: Dict[str, Any] = {

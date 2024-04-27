@@ -13,3 +13,11 @@ class Vote(ormar.Model):
     region: str = ormar.String(max_length=255)
     stage: int = ormar.Integer()
     amount: int = ormar.Integer(default=0)
+
+
+class RegionsStageTwo(ormar.Model):
+    class Meta(BaseMeta):
+        pass
+
+    id: int = ormar.Integer(primary_key=True)
+    region: str = ormar.String(max_length=255)
