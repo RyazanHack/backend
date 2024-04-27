@@ -49,3 +49,6 @@ class UserRepository:
 
     async def subtract_user_voice(self, user: User, amount) -> None:
         await user.update(unused_votes=user.unused_votes - amount)
+
+    async def delete_user(self, user: User) -> None:
+        await user.delete()

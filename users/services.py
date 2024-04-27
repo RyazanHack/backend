@@ -58,3 +58,6 @@ class UserService:
 
     async def subtract_user_voice(self, user: User, amount: int) -> None:
         await self.repository.subtract_user_voice(user, amount)
+
+    async def delete_user(self, user: User) -> None:
+        await self.repository.delete_user(user)
