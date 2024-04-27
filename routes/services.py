@@ -14,3 +14,6 @@ class RouterService:
 
     async def get_all_region_router(self, region: str) -> List[Router]:
         return await self.repository.get_region_routers(region)
+
+    async def get_route_by_id(self, route_id: int) -> Router:
+        return await self.repository.get_route_by_id(route_id)
