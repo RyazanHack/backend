@@ -1,8 +1,17 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Header
 
-vote_router = APIRouter(tags=["vote"], prefix="/vote")
+from random import randint
+
+from users.models import User
+
+votes_router = APIRouter(tags=["votes"], prefix="/votes")
 
 
-@vote_router.get("")
-async def get_vote():
-    return {"message": "Fuck you"}
+@votes_router.post('/upvote')
+def upvote(user: User):
+    return {'success': 'ok'}
+
+
+@votes_router.get('/{region_name}')
+def get_all_votes(region_name: str):
+    return {'region_name': region_name, 'amount': randint(1, 4445444)}

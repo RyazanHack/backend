@@ -40,4 +40,3 @@ tomli==2.0.1
 typing_extensions==4.10.0
 uvicorn==0.29.0
 virtualenv==20.25.1
-asyncpg
