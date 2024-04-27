@@ -7,6 +7,10 @@ from yookassa import Configuration
 
 load_dotenv()
 
+VOTE_PRICE = 100
+DESCRIPTION = "Голосование за регион"
+RETURN_URL = "http://82.146.40.76:8078/docs"
+
 METRICS = os.environ.get("METRICS", "") == "true"
 
 DB_HOST = os.environ.get("DB_HOST")
@@ -21,16 +25,14 @@ PRODUCTION = os.environ.get("PRODUCTION") == "true"
 
 PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = os.environ.get("SECRET_KEY")
-# SECRET_KEY = "131354536rdfhdfhfh"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 30
 
 # YOOKASSA
 YOOKASSA_ACCOUNT_ID = os.environ.get("YOOKASSA_ACCOUNT_ID", None)
 YOOKASSA_SECRET_KEY = os.environ.get("YOOKASSA_SECRET_KEY", None)
 Configuration.account_id = YOOKASSA_ACCOUNT_ID
 Configuration.secret_key = YOOKASSA_SECRET_KEY
-print(YOOKASSA_ACCOUNT_ID, YOOKASSA_SECRET_KEY)
 
 # LOGGING
 LOGGING_CONFIG: Dict[str, Any] = {

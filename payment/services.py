@@ -1,36 +1,34 @@
+from config import VOTE_PRICE, DESCRIPTION, RETURN_URL
 from .repositories import PaymentRepository
+from .schemas import PaymentResponse
+import uuid
+
+from yookassa import Payment
+from .models import Payment as DBPayment
 
 
 class PaymentService:
     repository = PaymentRepository()
 
-import uuid
-
-from yookassa import Configuration, Payment
-
-
-def save_payment(session, order_id, payment_id, idempotency_key, amount):
-    order_payment = Payment()
-    order_payment.payment_id = payment_id
-    order_payment.order_id = order_id
-    order_payment.idempotency_key = idempotency_key
-    order_payment.amount = amount
-    session.add(order_payment)
-    session.commit()
-    return order_payment
-
-
-def create_payment(amount: float, description: str, return_url: str):
-    print(Configuration.account_id , Configuration.secret_key)
-    if Configuration.account_id and Configuration.secret_key:
+    async def create_payment(self, user_id: int, count_vote: int) -> PaymentResponse:
+        amount = count_vote * VOTE_PRICE
         payment, idempotency_key = create_yookassa_payment(
-            amount, description, return_url
+            amount, DESCRIPTION, RETURN_URL
         )
+
         payment_id = payment.id
         confirmation_url = payment.confirmation.confirmation_url
-        # save_payment(session, order_id, payment_id, idempotency_key, amount)
-        return confirmation_url
-    return None
+
+        await self.repository.create(
+            payment_id=payment_id,
+            user_id=user_id,
+            idempotency_key=idempotency_key,
+            votes=count_vote,
+        )
+        return PaymentResponse(confirmation_url=confirmation_url)
+
+    async def set_confirm(self, payment_id: str) -> DBPayment:
+        return await self.repository.set_confirm(payment_id)
 
 
 def create_yookassa_payment(amount: float, description: str, return_url: str):
@@ -46,13 +44,3 @@ def create_yookassa_payment(amount: float, description: str, return_url: str):
     )
 
     return payment, str(idempotency_key)
-
-
-# def confirm_payment(session, payment_id):
-#     order_payment = (
-#         session.query(OrderPayment)
-#         .filter(OrderPayment.payment_id == payment_id)
-#         .first()
-#     )
-#     order_payment.confirmed = True
-#     session.commit()

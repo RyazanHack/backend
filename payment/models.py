@@ -1,4 +1,4 @@
-from vote.models import Vote
+import datetime
 
 import ormar
 
@@ -10,8 +10,9 @@ class Payment(ormar.Model):
         pass
 
     id: int = ormar.Integer(primary_key=True)
-    vote_id: Vote = ormar.ForeignKey(Vote)
+    user_id: int = ormar.Integer()
+    votes: int = ormar.Integer(default=0)
     payment_id: str = ormar.String(max_length=300)
     idempotency_key: str = ormar.String(max_length=300)
     confirmed: bool = ormar.Boolean(default=False)
-    created_at: str = ormar.DateTime(default=ormar.DateTime.now)
+    created_at: str = ormar.DateTime(default=datetime.datetime.now)

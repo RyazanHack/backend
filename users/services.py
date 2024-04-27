@@ -53,5 +53,8 @@ class UserService:
     async def create(self, user_create: UserCreate) -> User:
         return await self.repository.create(user_create)
 
+    async def add_unused_votes(self, user_id: int, votes: int):
+        return await self.repository.add_unused_votes(user_id, votes)
+
     async def subtract_user_voice(self, user: User) -> None:
         await self.repository.subtract_user_voice(user)
