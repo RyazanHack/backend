@@ -31,7 +31,7 @@ async def payment_confirm(request: Request):
                                              votes=payment.votes)
 
 
-@payment_router.post("/is_confirmed/{idempotency_key}")
+@payment_router.get("/is_confirmed/{idempotency_key}")
 async def payment_confirm(idempotency_key: str) -> IsConfirmedResponse:
     return IsConfirmedResponse(
         is_confirmed=(await PaymentService().is_confirmed(idempotency_key)))
