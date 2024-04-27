@@ -59,4 +59,4 @@ async def delete_user(
     current_user: Annotated[User, Depends(UserService().get_current_user)],
 ):
     await UserService().delete_user(current_user)
-    return {'success': 'ok'}
+    return {"success": "ok"}
