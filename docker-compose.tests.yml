@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  smart_chain_api:
+    command: pytest -vv -s
+    environment:
+      - DB_HOST=smart_chain_api_database_test
+    depends_on:
+      smart_chain_api_database_test:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "true"]
+
+  smart_chain_api_external_transactions:
+    command: "true"
+    depends_on:
+      smart_chain_api:
+        condition: service_started
+
+  smart_chain_api_database_test:
+    image: postgres:14-alpine
+    command: postgres -N 100
+
+    volumes:
+      - smart_chain_api_database_test_volume:/var/lib/postgresql/data/
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=smart_chain_api
+    ports:
+      - "54329:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  smart_chain_api_database_test_volume:
