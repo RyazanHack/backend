@@ -10,13 +10,11 @@ class UserCreate(BaseModel):
     phone: str
     gender: Gender
     date_of_birth: str
-    email: str
     password: str
     region: str
 
 
-class UserResponse(User.get_pydantic(
-    exclude={'password_hash', 'created_at'})):
+class UserResponse(User.get_pydantic(exclude={"password_hash", "created_at"})):
     pass
 
 
