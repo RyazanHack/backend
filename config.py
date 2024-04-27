@@ -3,6 +3,7 @@ from typing import Any, Dict
 
 from dotenv import load_dotenv
 from passlib.context import CryptContext
+from yookassa import Configuration
 
 load_dotenv()
 
@@ -19,13 +20,17 @@ DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NA
 PRODUCTION = os.environ.get("PRODUCTION") == "true"
 
 PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY = "131354536rdfhdfhfh"
+SECRET_KEY = os.environ.get("SECRET_KEY")
+# SECRET_KEY = "131354536rdfhdfhfh"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-
-
+# YOOKASSA
+YOOKASSA_ACCOUNT_ID = os.environ.get("YOOKASSA_ACCOUNT_ID", None)
+YOOKASSA_SECRET_KEY = os.environ.get("YOOKASSA_SECRET_KEY", None)
+Configuration.account_id = YOOKASSA_ACCOUNT_ID
+Configuration.secret_key = YOOKASSA_SECRET_KEY
+print(YOOKASSA_ACCOUNT_ID, YOOKASSA_SECRET_KEY)
 
 # LOGGING
 LOGGING_CONFIG: Dict[str, Any] = {

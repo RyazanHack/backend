@@ -9,6 +9,8 @@ x-bitracking_api-variables: &bitracking_api-variables
   PRODUCTION: false
   METRICS: false
   SECRET_KEY: "fgdfgojnfgoi94409tj0idfgidnf"
+  YOOKASSA_ACCOUNT_ID: "212591"
+  YOOKASSA_SECRET_KEY: "test_Bu_njDYEmKSqZjIKHEA0cnGmZnATPV7INM1irDsLWEc"
 
 services:
   bitracking_api:

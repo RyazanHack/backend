@@ -1,6 +1,5 @@
 from datetime import datetime, timezone, timedelta
 
-# from jose import jwt
 import jwt
 
 from config import PWD_CONTEXT, SECRET_KEY, ALGORITHM

@@ -22,9 +22,13 @@ async def get_user():
 
 
 @user_router.post("/register")
-async def register(user_create: UserCreate) -> UserResponse:
+async def register(user_create: UserCreate) -> Token:
     user = await UserService().create(user_create)
-    return UserResponse(**user.dict())
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.id}, expires_delta=access_token_expires
+    )
+    return Token(access_token=access_token, token_type="bearer")
 
 
 @user_router.post("/token")
