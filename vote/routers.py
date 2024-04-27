@@ -4,7 +4,7 @@ from fastapi import APIRouter, Header, Depends
 
 from random import randint
 
-
+from .models import Vote
 from .services import VoteService
 from .schemas import VoteCreate, RegionGet, RegionResponse
 
@@ -18,9 +18,8 @@ vote_router = APIRouter(tags=["votes"], prefix="/votes")
 async def upvote(
     current_user: Annotated[User, Depends(UserService().get_current_user)],
     vote: VoteCreate,
-) -> dict:
-    await VoteService().add_vote(current_user, vote)
-    return {"success": "ok"}
+) -> Vote:
+    return await VoteService().add_vote(current_user, vote)
 
 
 @vote_router.post("")

@@ -4,11 +4,15 @@ from .schemas import VoteCreate, RegionGet, RegionResponse
 
 
 class VoteRepository:
-    async def add_vote(self, user: User, vote: VoteCreate) -> Vote:
-        return await Vote.objects.get_or_create(**vote.dict(), user_id=user.id)
+    async def add_vote(self, user: User, new_vote: VoteCreate) -> Vote:
+        vote, is_created = await Vote.objects.get_or_create(
+            **new_vote.dict(exclude={"amount"}), user_id=user.id
+        )
+        await vote.update(amount=vote.amount + new_vote.amount)
+        return vote
 
     async def get_region_votes(self, searched_region: RegionGet) -> RegionResponse:
         votes = await Vote.objects.filter(
             region=searched_region.region, stage=searched_region.stage
-        ).all()
-        return RegionResponse(votes=len(votes), **searched_region.dict())
+        ).sum("amount")
+        return RegionResponse(votes=votes, **searched_region.dict())
