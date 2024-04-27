@@ -1,8 +1,8 @@
 """init
 
-Revision ID: b3c4cf6f38fc
+Revision ID: ab7b8c305148
 Revises: 
-Create Date: 2024-04-27 08:36:08.557003
+Create Date: 2024-04-27 09:21:32.473383
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'b3c4cf6f38fc'
+revision: str = 'ab7b8c305148'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -24,9 +24,8 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=200), nullable=False),
     sa.Column('surname', sa.String(length=200), nullable=False),
-    sa.Column('patronymic', sa.String(length=200), nullable=False),
     sa.Column('phone', sa.String(length=200), nullable=False),
-    sa.Column('phone_verificated', sa.Boolean(), nullable=True),
+    sa.Column('phone_verified', sa.Boolean(), nullable=True),
     sa.Column('role', sa.Enum('user', 'admin', name='roles'), nullable=False),
     sa.Column('gender', sa.Enum('male', 'female', name='gender'), nullable=False),
     sa.Column('date_of_birth', sa.Date(), nullable=False),
@@ -34,6 +33,7 @@ def upgrade() -> None:
     sa.Column('email_verified', sa.Boolean(), nullable=True),
     sa.Column('password_hash', sa.String(length=200), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('region', sa.String(length=255), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
