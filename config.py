@@ -8,8 +8,8 @@ from yookassa import Configuration
 load_dotenv()
 
 VOTE_PRICE = 100
-DESCRIPTION = "Голосование за регион"
-RETURN_URL = "http://82.146.40.76:8078/docs"
+DESCRIPTION = "Покупка голосов"
+HOST = "https://bitracking.ru"
 
 METRICS = os.environ.get("METRICS", "") == "true"
 
