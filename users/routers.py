@@ -16,7 +16,7 @@ user_router = APIRouter(tags=["user"], prefix="/user")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-@user_router.get("/")
+@user_router.get("")
 async def get_user():
     return {"message": "Hello World"}
 
