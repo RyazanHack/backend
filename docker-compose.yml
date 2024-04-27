@@ -24,8 +24,6 @@ services:
     depends_on:
       bitracking_api_database:
         condition: service_healthy
-    volumes:
-      - ./:/app
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost/ping"]
       interval: 30s
