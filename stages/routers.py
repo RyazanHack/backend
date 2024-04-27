@@ -19,6 +19,6 @@ async def get_current_stage():
 async def set_current_stage(
     user: Annotated[User, Depends(UserService().get_current_user)]
 ):
-    if not (user.role == "admin"):
+    if not (user.role.value == "admin"):
         raise UserIsNotAdmin()
     return await StageService().set_current_stage()

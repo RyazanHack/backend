@@ -16,7 +16,7 @@ routes_router = APIRouter(tags=["routes"], prefix="/routes")
 async def add_route(
     user: Annotated[User, Depends(UserService().get_current_user)], new_route: RouterAdd
 ) -> Router:
-    if not (user.role == "admin"):
+    if not (user.role.value == "admin"):
         raise UserIsNotAdmin()
     return await RouterService().add_router(new_route)
 
