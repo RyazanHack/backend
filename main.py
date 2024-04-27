@@ -11,6 +11,7 @@ from users.routers import user_router
 from vote.routers import vote_router
 from stages.routers import stage_router
 from payment.routers import payment_router
+from routes.routers import routes_router
 from config import LOGGING_CONFIG, METRICS, PRODUCTION
 from database import database
 from utils import apply_migrations
@@ -77,6 +78,7 @@ app.include_router(user_router)
 app.include_router(vote_router)
 app.include_router(payment_router)
 app.include_router(stage_router)
+app.include_router(routes_router)
 
 if __name__ == "__main__":
     uvicorn.run(

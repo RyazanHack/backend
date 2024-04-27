@@ -3,6 +3,7 @@ from typing import List
 from config import ALL_REGIONS
 
 from users.models import User
+from .exceptions import RegionNotFound
 from .models import Vote, RegionsStageTwo
 from .schemas import VoteCreate, RegionGet, RegionResponse
 from utils.choice_winners import stage_one
@@ -26,6 +27,8 @@ class VoteRepository:
         votes = await Vote.objects.filter(
             region=searched_region.region, stage=searched_region.stage
         ).sum("amount")
+        if not votes:
+            raise RegionNotFound(searched_region.region)
         return RegionResponse(votes=votes, **searched_region.dict())
 
     async def stage_one(self):
