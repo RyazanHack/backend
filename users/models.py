@@ -1,3 +1,4 @@
+import datetime
 from enum import Enum
 
 import ormar
@@ -26,9 +27,9 @@ class User(ormar.Model):
     phone_verified: bool = ormar.Boolean(default=False)
     role: Roles = ormar.Enum(enum_class=Roles)
     gender: Gender = ormar.Enum(enum_class=Gender)
-    date_of_birth: str = ormar.Date()
+    date_of_birth: datetime.date = ormar.Date()
     email: str = ormar.String(max_length=200)
     email_verified: bool = ormar.Boolean(default=False)
     password_hash: str = ormar.String(max_length=200)
-    created_at: str = ormar.DateTime(default=ormar.DateTime.now)
+    created_at: datetime.datetime = ormar.DateTime(default=datetime.datetime.now)
     region: str = ormar.String(max_length=255)

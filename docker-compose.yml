@@ -8,6 +8,7 @@ x-bitracking_api-variables: &bitracking_api-variables
   DB_PORT: 5432
   PRODUCTION: false
   METRICS: false
+  SECRET_KEY: "fgdfgojnfgoi94409tj0idfgidnf"
 
 services:
   bitracking_api:

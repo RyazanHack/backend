@@ -2,6 +2,7 @@ import os
 from typing import Any, Dict
 
 from dotenv import load_dotenv
+from passlib.context import CryptContext
 
 load_dotenv()
 
@@ -16,6 +17,14 @@ DB_PASSWORD = os.environ.get("DB_PASSWORD")
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 PRODUCTION = os.environ.get("PRODUCTION") == "true"
+
+PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "131354536rdfhdfhfh"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+
 
 
 # LOGGING
