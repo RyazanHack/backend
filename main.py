@@ -9,10 +9,12 @@ from starlette.responses import JSONResponse
 
 from users.routers import user_router
 from vote.routers import vote_router
+from travels.routers import travel_router
 from stages.routers import stage_router
 from payment.routers import payment_router
 from routes.routers import routes_router
-from config import LOGGING_CONFIG, METRICS, PRODUCTION
+from s3.api import S3Worker
+from config import LOGGING_CONFIG, METRICS, PRODUCTION, BUCKET_NAME
 from database import database
 from utils import apply_migrations
 
@@ -22,6 +24,8 @@ logger = getLogger("app")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     apply_migrations()
+
+    await S3Worker.new_bucket(BUCKET_NAME, ignore_existing=True)
 
     database_ = app.state.database
 
@@ -79,6 +83,7 @@ app.include_router(vote_router)
 app.include_router(payment_router)
 app.include_router(stage_router)
 app.include_router(routes_router)
+app.include_router(travel_router)
 
 if __name__ == "__main__":
     uvicorn.run(
