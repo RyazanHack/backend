@@ -14,6 +14,7 @@ from travels.routers import travel_router
 from stages.routers import stage_router
 from payment.routers import payment_router
 from routes.routers import routes_router
+from yagpt.routers import yagpt_router
 from s3.api import S3Worker
 from config import LOGGING_CONFIG, METRICS, PRODUCTION, BUCKET_NAME
 from database import database
@@ -86,6 +87,7 @@ app.include_router(stage_router)
 app.include_router(routes_router)
 app.include_router(travel_router)
 app.include_router(statistics_router)
+app.include_router(yagpt_router)
 
 if __name__ == "__main__":
     uvicorn.run(

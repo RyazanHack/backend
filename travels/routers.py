@@ -27,6 +27,6 @@ async def complete_travel(
     return await TravelService().complete_travel(user, route_id, photo)
 
 
-@travel_router.get("image/{filename}")
+@travel_router.get("/image/{filename}")
 async def get_file_url(filename: str) -> str:
     return await S3Worker.get_file_url(BUCKET_NAME, filename)
