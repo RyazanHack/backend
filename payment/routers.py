@@ -14,7 +14,7 @@ payment_router = APIRouter(tags=["payment"], prefix="/payment")
 async def payment(
     current_user: Annotated[User, Depends(UserService().get_current_user)],
     count_vote: int,
-):
+) -> str:
     return await PaymentService().create_payment(
         user_id=current_user.id, count_vote=count_vote
     )
