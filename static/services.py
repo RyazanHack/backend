@@ -2,13 +2,13 @@ from config import ALL_REGIONS
 from payment.repositories import PaymentRepository
 from users.repositories import UserRepository
 from vote.models import Vote
-from vote.repositories import VoteRepository
+from vote.services import VoteService
 from .schemas import UsersRegisteredResponse, VotesPurchasedResponse
 
 
 class StatisticService:
     user_repository = UserRepository()
-    vote_repository = VoteRepository()
+    vote_service = VoteService()
     payment_repository = PaymentRepository()
 
     async def get_count_users(self) -> UsersRegisteredResponse:
@@ -24,7 +24,7 @@ class StatisticService:
 
     async def get_top_regions_stage_2(self):
         votes = await Vote.objects.filter(stage=2).all()
-        winner_regions = await self.vote_repository.get_region_in_two_stage()
+        winner_regions = await self.vote_service.get_region_in_two_stage()
         winner_regions_dict = {region.region: 0 for region in winner_regions}
         for vote in votes:
             winner_regions_dict[vote.region] += vote.amount

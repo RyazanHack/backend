@@ -7,6 +7,7 @@ from .exceptions import RegionNotFound
 from .models import Vote, RegionsStageTwo
 from .schemas import VoteCreate, RegionGet, RegionResponse
 from utils.choice_winners import stage_one
+from stages.services import StageService
 
 
 class VoteRepository:
@@ -15,6 +16,14 @@ class VoteRepository:
             **new_vote.dict(exclude={"amount"}), user_id=user.id
         )
         await vote.update(amount=vote.amount + new_vote.amount)
+        if (await StageService().get_current_stage()).current_stage == 2:
+            new_vote.stage = 1
+            vote_new_stage, is_created = await Vote.objects.get_or_create(
+                **new_vote.dict(exclude={"amount"}), user_id=user.id
+            )
+
+            await vote_new_stage.update(amount=vote_new_stage.amount + new_vote.amount)
+            # print(vote, vote_new_stage)
         return vote
 
     async def add_region_in_two_stage(self, region: str) -> RegionsStageTwo:
@@ -53,3 +62,7 @@ class VoteRepository:
             winner_regions_dict.items(), key=lambda x: x[1], reverse=True
         )
         return winner_regions_dict[:10]
+
+    async def reset_amount(self):
+        for vote in await Vote.objects.all():
+            await vote.update(each=True, amount=0)

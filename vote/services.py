@@ -2,7 +2,7 @@ from typing import List
 
 from users.services import UserService
 from users.models import User
-from .models import Vote
+from .models import Vote, RegionsStageTwo
 from .repositories import VoteRepository
 from .schemas import VoteCreate, RegionResponse, RegionGet
 from .exceptions import NotExtraVotes, UserAlreadyVote
@@ -27,3 +27,9 @@ class VoteService:
 
     async def get_winner_stage_two(self):
         return await self.repository.stage_two()
+
+    async def reset_amount(self):
+        return await self.repository.reset_amount()
+
+    async def get_region_in_two_stage(self) -> List[RegionsStageTwo]:
+        return await RegionsStageTwo.objects.all()
