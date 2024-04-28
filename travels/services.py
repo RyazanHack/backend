@@ -19,12 +19,12 @@ class TravelService:
     async def get_user_travels(self, user: User) -> List[Travel]:
         return await self.repository.get_user_travels(user)
 
-    async def complete_travel(self, user: User, travel_id: int, photo: UploadFile):
-        travel = await self.add_travel(user, travel_id)
-        filename = f"{user.id}_{travel_id}"
+    async def complete_travel(self, user: User, route_id: int, photo: UploadFile):
+        travel = await self.add_travel(user, route_id)
+        filename = f"{user.id}_{travel.id}"
         _ = await S3Worker.upload_file(
             bucket=BUCKET_NAME, file=photo, filename=filename
         )
-        await self.repository.complete_travel(travel_id, filename)
+        await self.repository.complete_travel(travel.id, filename)
         travel.update({"filename": filename})
         return travel
