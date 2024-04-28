@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends
+from starlette.responses import FileResponse
 from typing_extensions import Annotated
 
 from stages.exceptions import UserIsNotAdmin
@@ -38,3 +39,13 @@ async def top_region(stage: int,
     elif stage == 2:
         return await StatisticService().get_top_regions_stage_2()
     raise HTTPException(status_code=404, detail="Stage not found")
+
+
+@statistics_router.get("/xlsx")
+async def xlsx(
+):
+    file_response = FileResponse((await StatisticService().get_xlsx_file()),
+                                 filename="statistic.xlsx")
+    # background_task.add_task(remove_file, temp_file)
+    return file_response
+    # return
