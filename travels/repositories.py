@@ -16,5 +16,5 @@ class TravelRepository:
         travel = await Travel.objects.get_or_none(id=travel_id)
         if not travel:
             raise TravelNotFound()
-        await travel.update(path_to_image=path_to_image, is_completed=True)
+        await travel.update(path_to_image=path_to_image)
         return travel
