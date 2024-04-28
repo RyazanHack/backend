@@ -43,10 +43,10 @@ async def top_region(stage: int,
 
 @statistics_router.get("/xlsx")
 async def xlsx(
-        # user: Annotated[User, Depends(UserService().get_current_user)]
+        user: Annotated[User, Depends(UserService().get_current_user)]
 ):
-    # if not (user.role.value == "admin"):
-    #     raise UserIsNotAdmin()
+    if not (user.role.value == "admin"):
+        raise UserIsNotAdmin()
     file_response = FileResponse((await StatisticService().get_xlsx_file()), filename="statistic.xlsx")
     # background_task.add_task(remove_file, temp_file)
     return file_response
