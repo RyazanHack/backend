@@ -24,3 +24,6 @@ class PaymentRepository:
         payment.confirmed = True
         await payment.update()
         return payment
+
+    async def get_all(self) -> list[Payment]:
+        return await Payment.objects.all()
