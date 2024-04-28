@@ -17,8 +17,8 @@ async def get_current_stage():
 
 @stage_router.patch("")
 async def set_current_stage(
-    user: Annotated[User, Depends(UserService().get_current_user)]
+    user: Annotated[User, Depends(UserService().get_current_user)], stage: int
 ):
     if not (user.role.value == "admin"):
         raise UserIsNotAdmin()
-    return await StageService().set_current_stage()
+    return await StageService().set_current_stage(stage)
