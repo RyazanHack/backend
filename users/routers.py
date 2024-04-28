@@ -49,6 +49,14 @@ async def login_for_access_token(user_login: UserLogin) -> Token:
 
 @user_router.post("/self")
 async def login_for_access_token(
-        current_user: Annotated[User, Depends(UserService().get_current_user)],
+    current_user: Annotated[User, Depends(UserService().get_current_user)],
 ):
     return UserResponse(**current_user.dict())
+
+
+@user_router.delete("")
+async def delete_user(
+    current_user: Annotated[User, Depends(UserService().get_current_user)],
+):
+    await UserService().delete_user(current_user)
+    return {"success": "ok"}

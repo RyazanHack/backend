@@ -9,7 +9,7 @@ class Vote(ormar.Model):
         pass
 
     id: int = ormar.Integer(primary_key=True)
-    user_id: User = ormar.ForeignKey(User)
+    user_id: int = ormar.Integer()
     region: str = ormar.String(max_length=255)
     stage: int = ormar.Integer()
     amount: int = ormar.Integer(default=0)
