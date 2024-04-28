@@ -52,3 +52,6 @@ class UserRepository:
 
     async def delete_user(self, user: User) -> None:
         await user.delete()
+
+    async def count(self) -> int:
+        return await User.objects.count()

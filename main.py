@@ -7,6 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
+from static.routers import statistics_router
 from users.routers import user_router
 from vote.routers import vote_router
 from stages.routers import stage_router
@@ -79,6 +80,7 @@ app.include_router(vote_router)
 app.include_router(payment_router)
 app.include_router(stage_router)
 app.include_router(routes_router)
+app.include_router(statistics_router)
 
 if __name__ == "__main__":
     uvicorn.run(
