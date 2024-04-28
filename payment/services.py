@@ -28,8 +28,7 @@ class PaymentService:
             idempotency_key=idempotency_key,
             votes=count_vote,
         )
-        return PaymentResponse(idempotency_key=idempotency_key,
-                               confirmation_url=confirmation_url)
+        return confirmation_url
 
     async def set_confirm(self, payment_id: str) -> DBPayment:
         return await self.repository.set_confirm(payment_id)
