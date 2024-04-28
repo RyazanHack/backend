@@ -13,4 +13,3 @@ class Travel(ormar.Model):
     user_id: int = ormar.Integer()
     route_id: int = ormar.Integer()
     path_to_image: str = ormar.String(max_length=500, default="")
-    is_completed: bool = ormar.Boolean(default=False)

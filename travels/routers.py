@@ -9,13 +9,6 @@ from .services import TravelService
 travel_router = APIRouter(tags=["travel"], prefix="/travel")
 
 
-@travel_router.post("")
-async def add_user_travel(
-    user: Annotated[User, Depends(UserService().get_current_user)], route_id: int
-):
-    return await TravelService().add_travel(user, route_id)
-
-
 @travel_router.get("")
 async def get_user_travels(
     user: Annotated[User, Depends(UserService().get_current_user)]
