@@ -26,5 +26,5 @@ class TravelService:
             bucket=BUCKET_NAME, file=photo, filename=filename
         )
         await self.repository.complete_travel(travel_id, filename)
-        travel.update({'filename': filename})
+        travel.update({"filename": filename})
         return travel
