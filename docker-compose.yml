@@ -11,7 +11,7 @@ x-bitracking_api-variables: &bitracking_api-variables
   SECRET_KEY: "fgdfgojnfgoi94409tj0idfgidnf"
   YOOKASSA_ACCOUNT_ID: "212591"
   YOOKASSA_SECRET_KEY: "test_Bu_njDYEmKSqZjIKHEA0cnGmZnATPV7INM1irDsLWEc"
-  MINIO_ENDPOINT_URL: "http://api_s3:9000"
+  MINIO_ADDRESS: "http://api_s3:9000"
   S3_WORKER_API: "http://s3_worker:8000"
 
 services:
