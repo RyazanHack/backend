@@ -17,3 +17,6 @@ class RouterRepository:
         if not route:
             raise RouteNotFound()
         return route
+
+    async def get_all_routes(self) -> List[Router]:
+        return await Router.objects.all()

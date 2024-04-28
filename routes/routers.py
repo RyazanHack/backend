@@ -29,3 +29,8 @@ async def get_region_routes(region: str) -> List[Router]:
 @routes_router.get("")
 async def get_route_by_id(route_id: int) -> Router:
     return await RouterService().get_route_by_id(route_id)
+
+
+@routes_router.get("/all")
+async def get_all_routes() -> List[Router]:
+    return await RouterService().get_all_routes()
