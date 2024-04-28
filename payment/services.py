@@ -10,7 +10,7 @@ from .models import Payment as DBPayment
 class PaymentService:
     repository = PaymentRepository()
 
-    async def create_payment(self, user_id: int, count_vote: int) -> PaymentResponse:
+    async def create_payment(self, user_id: int, count_vote: int) -> str:
         amount = count_vote * VOTE_PRICE
         idempotency_key = str(uuid.uuid4())
         return_url = f"{HOST}/payment/{idempotency_key}"
