@@ -25,6 +25,7 @@ from vote import models  # noqa
 from payment import models  # noqa
 from stages import models  # noqa
 from routes import models  # noqa
+from travels import models  # noqa
 
 target_metadata = metadata
 config.set_main_option("sqlalchemy.url", DATABASE_URL)

@@ -28,7 +28,7 @@ class VoteRepository:
             region=searched_region.region, stage=searched_region.stage
         ).sum("amount")
         if not votes:
-            raise RegionNotFound(searched_region.region)
+            return RegionResponse(votes=0, **searched_region.dict())
         return RegionResponse(votes=votes, **searched_region.dict())
 
     async def stage_one(self):
