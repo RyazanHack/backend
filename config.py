@@ -33,7 +33,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 30
 # S3
 MINIO_ADDRESS = os.environ.get("MINIO_ADDRESS")
 S3_WORKER_API = os.environ.get("S3_WORKER_API")
-BUCKET_NAME = "bitracking_bucket"
+BUCKET_NAME = "bitracking"
 
 # YOOKASSA
 YOOKASSA_ACCOUNT_ID = os.environ.get("YOOKASSA_ACCOUNT_ID", None)

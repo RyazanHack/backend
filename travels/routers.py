@@ -21,10 +21,10 @@ async def get_user_travels(
 @travel_router.post("/complete")
 async def complete_travel(
     user: Annotated[User, Depends(UserService().get_current_user)],
-    travel_id: int = Query(),
+    route_id: int = Query(),
     photo: UploadFile = File(None),
 ):
-    return await TravelService().complete_travel(user, travel_id, photo)
+    return await TravelService().complete_travel(user, route_id, photo)
 
 
 @travel_router.get("image/{filename}")
