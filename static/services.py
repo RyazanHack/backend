@@ -36,9 +36,18 @@ class StatisticService:
     async def get_top_regions_stage_1(self):
         votes = await Vote.objects.filter(stage=1).all()
         winner_regions_dict = {region: 0 for region in ALL_REGIONS.keys()}
+        total_votes = 0
         for vote in votes:
             winner_regions_dict[vote.region] += vote.amount
+            total_votes += vote.amount
+
         winner_regions_dict = sorted(
             winner_regions_dict.items(), key=lambda x: x[1], reverse=True
         )
-        return winner_regions_dict[:10]
+        if total_votes == 0:
+            total_votes = 1
+        res = []
+        for region in winner_regions_dict:
+            p = round(region[1] / total_votes * 100, 2)
+            res.append((region[0], region[1], p))
+        return res[:10]
